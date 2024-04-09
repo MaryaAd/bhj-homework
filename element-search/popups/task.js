@@ -5,15 +5,22 @@ const success = document.querySelector('#modal_success');
 
 popup.className = 'modal modal_active';
 
-close[0].onclick = function () {
-    popup.className = 'modal';
+function closePopup() {
+    for (let i = 0; i < close.length; i++) {
+        let eachClose = close[i];
+
+        let closeFunc = () => {
+            success.style.display = "none";
+            popup.style.display = "none";
+        };
+
+        eachClose.onclick = closeFunc;
+    }
+}
+
+successBtn.onclick = function successOpen() {
+    popup.className = "modal";
+    success.className = "modal modal_active";
 };
 
-successBtn.onclick = function () {
-    success.className = 'modal modal_active';
-};
-
-close[1].onclick = function () {
-    popup.className = 'modal';
-    success.className = 'modal';
-};
+closePopup();

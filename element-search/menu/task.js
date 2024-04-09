@@ -1,16 +1,37 @@
+// const links = document.querySelectorAll('.menu__link');
+
+// for (let link of Array.from(links)) {
+//     link.onclick = function () {
+//         const parent = link.parentElement;
+//         if (parent.querySelector('.menu_sub').className === 'menu menu_sub') {
+//             parent.querySelector('.menu_sub').className = 'menu menu_sub menu_active';
+//         } else {
+//             parent.querySelector('.menu_sub').className = 'menu menu_sub'
+//         }
+
+//         if (link.closest('.menu_main')) {
+//             return false
+//         }
+//     }
+// }
+
 const links = document.querySelectorAll('.menu__link');
+let menus = document.querySelectorAll('.menu');
 
-for (let link of Array.from(links)) {
-    link.onclick = function () {
-        const parent = link.parentElement;
-        if (parent.querySelector('.menu_sub').className === 'menu menu_sub') {
-            parent.querySelector('.menu_sub').className = 'menu menu_sub menu_active';
-        } else {
-            parent.querySelector('.menu_sub').className = 'menu menu_sub'
+links.forEach(link => {
+    link.addEventListener('click', e => {
+        const menu_item = link.closest('.menu__item')
+        const subMenu = menu_item.querySelector('.menu_sub')
+        if (subMenu) {
+            if (subMenu.classList.contains('menu_active')) {
+                subMenu.classList.remove('menu_active');
+            } else {
+                menus.forEach(menu => {
+                    menu.classList.remove('menu_active');
+                });
+                subMenu.classList.add('menu_active')
+            }
+            e.preventDefault();
         }
-
-        if (link.closest('.menu_main')) {
-            return false
-        }
-    }
-}
+    });
+});
